@@ -1,0 +1,211 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  VERIFIED
+}
+
+enum AccountStatus {
+  ACTIVE
+  FROZEN
+}
+
+enum LedgerEntryType {
+  DEBIT
+  CREDIT
+}
+
+enum TransactionType {
+  INTRA
+  INTER
+}
+
+enum TransactionDirection {
+  DEBIT
+  CREDIT
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  SUCCESSFUL
+  FAILED
+  REVERSED
+}
+
+enum TransactionLogStatus {
+  INFO
+  SUCCESS
+  FAILED
+  PENDING
+}
+
+model User {
+  id    String @id @default(uuid())
+  email String @unique
+}
+
+model Customer {
+  id                 String             @id @default(uuid())
+  email              String             @unique
+  phone              String?
+  bvn                String?            @unique
+  nin                String?            @unique
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  firstName          String?
+  lastName           String?
+
+  account Account?
+
+  authUser AuthUser?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("customers")
+
+}
+
+model Account {
+  id String @id @default(uuid())
+
+  customerId String @unique
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  accountNumber String @unique
+  accountName   String
+
+  balance Decimal @default(0) @db.Decimal(15, 2)
+
+  status AccountStatus @default(ACTIVE)
+
+  ledgerEntries LedgerEntry[]
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("accounts")
+  @@index([customerId])
+}
+
+model LedgerEntry {
+  id String @id @default(uuid())
+
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  transactionId String?
+  transaction Transaction? @relation(fields: [transactionId], references: [id])
+
+  entryType LedgerEntryType
+
+  amount Decimal @db.Decimal(15, 2)
+
+  balanceAfter Decimal? @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now())
+
+  @@map("ledger_entries")
+  @@index([accountId])
+}
+
+model Transaction {
+  id String @id @default(uuid())
+
+  reference String @unique
+
+  senderAccountId String?
+  senderAccount   Account? @relation(fields: [senderAccountId], references: [id])
+
+  receiverAccountNumber String
+  receiverAccountName   String?
+
+  bankCode String?
+  bankName String?
+
+  amount Decimal @db.Decimal(15, 2)
+
+  transactionType TransactionType
+  direction TransactionDirection
+
+  status TransactionStatus @default(PENDING)
+
+  narration String?
+
+  externalReference String?
+
+  transactionLogs TransactionLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([senderAccountId])
+  @@index([reference])
+  @@map("transactions")
+}
+
+model Bank {
+  id String @id @default(uuid())
+
+  name String
+  code String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("banks")
+}
+
+model AuthUser {
+  id String @id @default(uuid())
+
+  customerId String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  passwordHash String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("auth_users")
+}
+
+model NameEnquiry {
+  id String @id @default(uuid())
+
+  accountNumber String
+  bankCode      String?
+
+  accountName String?
+
+  status String @default("success") // optional: success | failed | pending
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("name_enquiries")
+}
+
+model TransactionLog {
+  id String @id @default(uuid())
+
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  status TransactionLogStatus @default(INFO)
+
+  message String?
+
+  createdAt DateTime @default(now())
+
+  @@map("transaction_logs")
+}
