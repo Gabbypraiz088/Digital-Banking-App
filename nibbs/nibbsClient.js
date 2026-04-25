@@ -1,13 +1,32 @@
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
 
-export const nibssClient = axios.create({
-  baseURL: process.env.NIBSS_URL,
-  headers: {
-    Authorization: `Bearer ${process.env.NIBSS_API_KEY}`,
-    'Api-Secret': process.env.NIBSS_API_SECRET,
-    "Content-Type": "application/json",
+import { getAccessToken } from "../nibbs/authServices";
+
+export const nibssClient =
+  axios.create({
+    baseURL:
+      process.env.NIBSS_URL,
+
+    timeout: 10000,
+  });
+
+// attach JWT automatically
+ 
+nibssClient.interceptors.request.use(
+  async (config) => {
+
+    const token =
+      await getAccessToken();
+
+    config.headers.Authorization =
+      `Bearer ${token}`;
+
+    config.headers["Content-Type"] =
+      "application/json";
+
+    return config;
   },
-  timeout: 10000,
-});
+
+  (error) =>
+    Promise.reject(error)
+);

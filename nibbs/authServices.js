@@ -1,19 +1,37 @@
 import axios from "axios";
+import dotenv from "dotenv";
 
-import { nibssClient } from "../nibbs/nibbsClient";
+dotenv.config();
 
-export const validateAuthToken =
+let cachedToken = null;
+
+/**
+ * Login and get JWT token
+ */
+export const getAccessToken =
   async () => {
-    const response =
-      await nibssClient.get(
-        "/auth/token",
-        {
-          headers: {
-            Authorization:
-              `Bearer ${process.env.NIBSS_CLIENT_TOKEN}`,
-          },
-        }
-      );
 
-    return response.data;
+    // reuse token if already fetched
+    if (cachedToken) {
+      return cachedToken;
+    }
+
+    const response = await axios.post(
+      `${process.env.NIBSS_URL}/auth/login`,
+      {
+        apiKey:
+          process.env.NIBSS_API_KEY,
+
+        apiSecret:
+          process.env.NIBSS_API_SECRET,
+      }
+    );
+
+    const token =
+      response.data.token;
+
+    cachedToken = token;
+
+    return token;
   };
+  

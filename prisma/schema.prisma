@@ -103,7 +103,7 @@ model LedgerEntry {
   accountId String
   account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
-  transactionId String?
+  transactionId String
   transaction Transaction? @relation(fields: [transactionId], references: [id])
 
   entryType LedgerEntryType
@@ -144,6 +144,7 @@ model Transaction {
   externalReference String?
 
   transactionLogs TransactionLog[]
+  ledgerEntries LedgerEntry[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
