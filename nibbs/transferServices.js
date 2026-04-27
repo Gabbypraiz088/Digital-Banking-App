@@ -11,13 +11,13 @@ export const initiateTransfer = async (
 ) => {
     const response = await nibbsClient.post(
         "/transfer",
-        {
+        ({
             fromAccount,
             toAccount,
             amount,
             narration,
             reference
-        }
+        })
     );
 
     return response.data;
@@ -26,7 +26,7 @@ export const initiateTransfer = async (
 // transfer status check
 export const checkTransactionRef = async (reference) => {
     const response = await nibssClient.get(
-        `/transaction/${ref}`
+        `/transaction/${reference}`
     ); 
     return response.data;
-};
+}; 
