@@ -1,4 +1,4 @@
-import prisma from '../config/prisma.client'
+import prisma from '../config/prisma.client.js';
 
 // create an account 
 export const createAccount = async (data) => {

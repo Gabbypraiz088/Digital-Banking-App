@@ -1,4 +1,4 @@
-import prisma from '../config/prisma.client';
+import prisma from '../config/prisma.client.js';
 
 // create transaction
 export const createTransaction = (data) => {

@@ -1,4 +1,4 @@
-import * as ledgerService from '../services/ledgerServices';
+import * as ledgerService from '../services/ledgerServices.js';
 
 // fetch account ledger
 export const getAccountLedger = async (req, res, next) => {

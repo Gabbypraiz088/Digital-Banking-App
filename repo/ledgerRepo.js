@@ -1,4 +1,4 @@
-import prisma from '../config/prisma.client'
+import prisma from '../config/prisma.client.js';
 
 // create a ledger entry
 export const createLedgerEntry = async (data) => {

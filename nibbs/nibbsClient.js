@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getAccessToken } from "../nibbs/authServices";
+import { getAccessToken } from "../nibbs/authServices.js";
 
 export const nibssClient =
   axios.create({

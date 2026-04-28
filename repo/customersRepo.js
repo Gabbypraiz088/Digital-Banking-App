@@ -1,6 +1,6 @@
 // customer repository
 
-import prisma from "../config/prisma.client";
+import prisma from "../config/prisma.client.js";
 
 export const createCustomer = (data) => {
   return prisma.customer.create({ data });

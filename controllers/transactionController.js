@@ -1,4 +1,4 @@
-import * as transactionServices from '../services/transactionServices';
+import * as transactionServices from '../services/transactionServices.js';
 
 // fetch transaction by reference
 export const getTransaction = async (req, res, next) => {

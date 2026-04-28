@@ -1,4 +1,4 @@
-import * as transactionRepo from '../repo/transactionsRepo';
+import * as transactionRepo from '../repo/transactionsRepo.js';
 
 //fetch transaction
 export const getTransaction = async (reference) => {

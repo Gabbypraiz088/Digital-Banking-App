@@ -1,4 +1,4 @@
-import * as accountService from "../services/accountServices";
+import * as accountService from "../services/accountServices.js";
 
 export const createAccountController = async (req, res, next) => {
   try {
@@ -9,23 +9,23 @@ export const createAccountController = async (req, res, next) => {
       data: account,
     });
   } catch (error) {
-    next;
+    next(error);
   }
 };
 
 // Get account
-export const getAccountController = async (req, res) => {
+export const getAccountController = async (req, res, next) => {
   try {
     const account = await accountService.getAccountById(req.params.id);
 
     res.status(200).json({ data: account });
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
+  } catch (error) {
+    next(error);
+  } 
 };
 
 // Credit account
-export const creditAccountController = async (req, res) => {
+export const creditAccountController = async (req, res, next) => {
   try {
     const { accountId, amount } = req.body;
 
@@ -35,13 +35,13 @@ export const creditAccountController = async (req, res) => {
       message: "Account credited successfully",
       data: result,
     });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    next(error);
   }
 };
 
 // Debit account
-export const debitAccountController = async (req, res) => {
+export const debitAccountController = async (req, res, next ) => {
   try {
     const { accountId, amount } = req.body;
 
@@ -51,7 +51,7 @@ export const debitAccountController = async (req, res) => {
       message: "Account debited successfully",
       data: result,
     });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    next(error);
   }
 };

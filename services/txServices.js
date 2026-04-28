@@ -1,9 +1,9 @@
-import prisma from '../config/prisma.client';
-import * as accountRepo from '../repo/accountsRepo';
-import * as transactionRepo from '../repo/transactionsRepo';
-import * as ledgerService from './ledgerServices';
-import * as nameEnquiryService from '../nibbs/nibbs.nameEnquiry';
-import * as nibbsTransferServices from '../nibbs/transferServices';
+import prisma from '../config/prisma.client.js';
+import * as accountRepo from '../repo/accountsRepo.js';
+import * as transactionRepo from '../repo/transactionsRepo.js';
+import * as ledgerService from './ledgerServices.js';
+import * as nameEnquiryService from '../nibbs/nibbs.nameEnquiry.js';
+import * as nibbsTransferServices from '../nibbs/transferServices.js';
 import { text } from 'express';
 
 // transfer funds

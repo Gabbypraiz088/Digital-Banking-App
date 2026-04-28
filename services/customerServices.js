@@ -1,6 +1,6 @@
-import * as customerRepo from "../repo/customersRepo";
-import * as nibss from "../nibbs/nibbsClient";
-import { verifyBVN } from "../nibbs/bvnServices";
+import * as customerRepo from "../repo/customersRepo.js";
+import * as nibss from "../nibbs/nibbsClient.js";
+import { verifyBVN } from "../nibbs/bvnServices.js";
 
 
 // onboard a new customer

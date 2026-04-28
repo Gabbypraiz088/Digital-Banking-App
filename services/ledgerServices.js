@@ -1,4 +1,4 @@
-import * as ledgerRepo from '../repo/ledgerRepo';
+import * as ledgerRepo from '../repo/ledgerRepo.js';
 
 // record debit entry
 export const recordDebitEntry = async (

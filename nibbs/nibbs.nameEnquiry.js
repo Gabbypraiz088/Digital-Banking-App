@@ -1,4 +1,4 @@
-import { nibssClient } from "../nibbs/nibbsClient";
+import { nibssClient } from "../nibbs/nibbsClient.js";
 
 export const resolveAccountName = async (
   accountNumber,

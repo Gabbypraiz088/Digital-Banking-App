@@ -1,4 +1,4 @@
-import * as customerService from "../services/customerServices"
+import * as customerService from "../services/customerServices.js";
 
 
 // onboard customer

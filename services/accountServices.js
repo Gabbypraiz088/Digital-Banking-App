@@ -1,4 +1,4 @@
-import * as accountRepo from '../repo/accountsRepo';
+import * as accountRepo from '../repo/accountsRepo.js';
 
 // create a new account
 export const createAccount = async (data) => {

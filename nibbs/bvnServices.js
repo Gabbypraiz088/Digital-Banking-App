@@ -1,6 +1,6 @@
 // bvn.service.js
 
-import { nibssClient } from "./nibbsClient";
+import { nibssClient } from "./nibbsClient.js";
 
 export const verifyBVN = async (bvn) => {
   const response = await nibssClient.post(

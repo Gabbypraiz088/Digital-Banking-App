@@ -1,4 +1,4 @@
-import { nibssClient } from "./nibbsClient";
+import { nibssClient } from "./nibbsClient.js";
 
 
 // funds transfer service
