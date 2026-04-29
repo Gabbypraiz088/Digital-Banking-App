@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import app from './app.js';
 import cors from 'cors';
 
+// directUrl = env("DIRECT_URL")
+
 app.use(cors());
 dotenv.config();
 

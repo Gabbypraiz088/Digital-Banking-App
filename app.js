@@ -1,7 +1,15 @@
 import express from 'express';
 const app = express();
 
+// import routes
+import authRoutes from './routes/authRoutes.js';
+import accountRoutes from './routes/accountRoutes.js';
+import transactionRoutes from './routes/transactionsRoutes.js';
+import customerRoutes from './routes/customerRoutes.js';
+import ledgerRoutes from './routes/ledgerRoutes.js';
+import cors from 'cors';
 
+app.use(cors());
 app.use(express.json());
 
 // check app health
@@ -13,7 +21,10 @@ app.get('/health', (req, res) => {
 });
 
 // routes
-
-
+app.use('/auth', authRoutes);
+app.use('/accounts', accountRoutes);
+app.use('/transactions', transactionRoutes);
+app.use('/customers', customerRoutes);
+app.use('/ledgers', ledgerRoutes);
 
 export default app;

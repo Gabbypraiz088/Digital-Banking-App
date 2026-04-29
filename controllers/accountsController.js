@@ -1,6 +1,6 @@
 import * as accountService from "../services/accountServices.js";
 
-export const createAccountController = async (req, res, next) => {
+export const createAccount = async (req, res, next) => {
   try {
     const account = await accountService.createAccount(req.body);
 
@@ -14,7 +14,7 @@ export const createAccountController = async (req, res, next) => {
 };
 
 // Get account
-export const getAccountController = async (req, res, next) => {
+export const getAccount = async (req, res, next) => {
   try {
     const account = await accountService.getAccountById(req.params.id);
 
@@ -25,7 +25,7 @@ export const getAccountController = async (req, res, next) => {
 };
 
 // Credit account
-export const creditAccountController = async (req, res, next) => {
+export const creditAccount = async (req, res, next) => {
   try {
     const { accountId, amount } = req.body;
 
@@ -41,7 +41,7 @@ export const creditAccountController = async (req, res, next) => {
 };
 
 // Debit account
-export const debitAccountController = async (req, res, next ) => {
+export const debitAccount = async (req, res, next ) => {
   try {
     const { accountId, amount } = req.body;
 
