@@ -1,8 +1,8 @@
 import express from 'express';
 import {onboard, getCustomer, getBVNDetails, getNINDetails, verifyCustomer, authorizeCustomer} from '../controllers/customersController.js';
-import {authenticate} from '../middleware/authMiddleware.js';
+import {authenticate} from '../middlewares/authMiddleware.js';
 import {validate} from '../middlewares/validationMiddleware.js';
-import {createCstomerSchema, bvnValidatorSchema, ninValidatorSchema } from '../validators/customerValidator.js';
+import {createCustomerSchema, bvnValidatorSchema, ninValidatorSchema } from '../validators/customerValidator.js';
 
 const router = express.Router();
 

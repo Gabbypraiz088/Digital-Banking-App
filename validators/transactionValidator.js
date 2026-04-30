@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const transferSchema =
+export const transactionValidatorSchema =
   z.object({
 
     senderAccountId:

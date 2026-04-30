@@ -1,6 +1,6 @@
 import { nibssClient } from "./nibbsClient.js";
 
-export const createAccountNumber =
+export const generateAccountNumber =
   async ({
     customerName,
     bvn,

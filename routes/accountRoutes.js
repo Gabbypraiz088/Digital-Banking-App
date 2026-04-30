@@ -1,6 +1,6 @@
 import express from 'express';
 import {createAccount, getAccountBalance, getAccount, creditAccount, debitAccount} from '../controllers/accountsController.js';
-import {authenticate} from '../middleware/authMiddleware.js';
+import {authenticate} from '../middlewares/authMiddleware.js';
 import {validate} from '../middlewares/validationMiddleware.js';
 import {createAccountSchema, creditAccountSchema, debitAccountSchema} from '../validators/accountValidator.js';
 

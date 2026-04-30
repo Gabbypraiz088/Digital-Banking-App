@@ -34,3 +34,16 @@ export const createCustomerSchema =
       z.string()
         .min(8),
   });
+
+  export const bvnValidatorSchema = z.object({
+
+    bvn:
+      z.string()
+        .length(11),
+  });
+
+  export const ninValidatorSchema = z.object({
+    nin:
+      z.string()
+        .length(11),
+  });

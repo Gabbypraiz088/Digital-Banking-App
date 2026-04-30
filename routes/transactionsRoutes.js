@@ -1,6 +1,6 @@
 import express from 'express';
 import {getTransaction, getAccountTransactions} from '../controllers/transactionController.js'
-import {authenticate} from '../middleware/authMiddleware.js';
+import {authenticate} from '../middlewares/authMiddleware.js';
 import {validate} from '../middlewares/validationMiddleware.js';
 import {transactionValidatorSchema} from '../validators/transactionValidator.js';
 
