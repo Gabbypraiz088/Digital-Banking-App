@@ -1,11 +1,63 @@
 import * as accountRepo from '../repo/accountsRepo.js';
+import {generateAccountNumber} from '../nibbs/generateAccountNumber.js';
+import {checkAccountBalance} from '../nibbs/balanceEnquiryServices.js';
 
 // create a new account
-export const createAccount = async (data) => {
-    if (!data.accountNumber || !data.accountName || !data.bankName) {
-        throw new Error("Missing required fields: accountNumber, accountName, bankName");
+export const createAccount =
+  async (data) => {
+
+    if (!data.accountName) {
+      throw new Error(
+        "Account name is required"
+      );
     }
-    return accountRepo.createAccount(data);
+
+    // call NIBSS
+    const generatedAccount =
+      await generateAccountNumber({
+        accountName:
+          data.accountName,
+      });
+
+    if (!generatedAccount || !generatedAccount.accountNumber) {
+      throw new Error(
+        "Failed to generate account number"
+      );
+    }
+
+    // save to DB
+    return await accountRepo
+      .createAccount({
+
+        ...data,
+
+        accountNumber: generatedAccount.accountNumber,
+      });
+};
+
+// balance enquiry
+
+export const getBalance =
+  async (accountId) => {
+
+    const account =
+      await accountRepo.findAccountById(accountId);
+
+    if (!account) {throw new Error(
+        "Account not found"
+      );
+    } const balance =
+      await checkAccountBalance({
+
+        accountNumber:
+          account.accountNumber,
+
+        bankCode:
+          account.bankCode,
+
+      });
+
+    return balance;
 };
 
 // get account details by id
@@ -23,7 +75,7 @@ export const creditAccount = async (accountId, amount) => {
 
   if (!account) throw new Error("Account not found");
 
-  const newBalance = account.balance + amount;
+  const newBalance = Number(account.balance) + Number(amount);
 
   return await accountRepo.updateAccountBalance(accountId, newBalance);
 };
@@ -35,7 +87,7 @@ export const debitAccount = async (accountId, amount) => {
   if (!account) throw new Error("Account not found");
   if (account.balance < amount) throw new Error("Insufficient funds");
 
-  const newBalance = account.balance - amount;
+  const newBalance = Number(account.balance) - Number(amount);
 
   return await accountRepo.updateAccountBalance(accountId, newBalance);
 };

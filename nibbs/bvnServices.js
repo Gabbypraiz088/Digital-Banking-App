@@ -4,7 +4,7 @@ import { nibssClient } from "./nibbsClient.js";
 
 export const verifyBVN = async (bvn) => {
   const response = await nibssClient.post(
-    "/bvn/verify",
+    "/validateBvn",
     { bvn }
   );
 
