@@ -15,8 +15,9 @@ export const nibssClient =
 nibssClient.interceptors.request.use(
   async (config) => {
 
-    const token =
-      await getAccessToken();
+    const token = await getAccessToken();
+
+    console.log("TOKEN:", token);
 
     config.headers.Authorization =
       `Bearer ${token}`;
@@ -24,9 +25,10 @@ nibssClient.interceptors.request.use(
     config.headers["Content-Type"] =
       "application/json";
 
+    console.log("HEADERS:", config.headers);
+
     return config;
   },
 
-  (error) =>
-    Promise.reject(error)
+  (error) => Promise.reject(error)
 );

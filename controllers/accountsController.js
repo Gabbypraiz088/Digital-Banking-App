@@ -1,4 +1,4 @@
-import * as accountService from "../services/accountServices.js";
+import * as accountService from "../services/accountServices.js";  
 
 export const createAccount = async (req, res, next) => {
   try {

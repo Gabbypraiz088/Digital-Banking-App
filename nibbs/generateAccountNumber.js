@@ -4,6 +4,7 @@ export const generateAccountNumber =
   async ({
     customerName,
     bvn,
+    dob,
     phone,
     email,
   }) => {
@@ -15,6 +16,7 @@ export const generateAccountNumber =
         {
           customerName,
           bvn,
+          dob,
           phone,
           email,
         }
