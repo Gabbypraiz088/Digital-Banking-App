@@ -20,10 +20,10 @@ try{
       `${process.env.NIBSS_URL}/auth/token`,
       {
         apiKey:
-          process.env.NIBSS_API_KEY,
+          process.env.NIBBS_API_KEY,
 
         apiSecret:
-          process.env.NIBSS_API_SECRET,
+          process.env.NIBBS_API_SECRET,
       }
     );
 
