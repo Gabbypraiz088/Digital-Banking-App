@@ -2,37 +2,33 @@ import * as accountRepo from '../repo/accountsRepo.js';
 import {generateAccountNumber} from '../nibbs/generateAccountNumber.js';
 import {checkAccountBalance} from '../nibbs/balanceEnquiryServices.js';
 
-// create a new account
-export const createAccount =
-  async (data) => {
+export const createAccount = async (data) => {
 
-    if (!data.accountName) {
-      throw new Error(
-        "Account name is required"
-      );
-    }
+  const { kycType, kycID, dob, customerName } = data;
 
-    // call NIBSS
-    const generatedAccount =
-      await generateAccountNumber({
-        accountName:
-          data.accountName,
-      });
+  // call NIBSS
+  const generatedAccount = await generateAccountNumber({
+    kycType: data.kycType,
+    kycID: data.kycID,
+    dob: data.dob
+    });
+  
+    const nibssAccount = generatedAccount.account;
 
-    if (!generatedAccount || !generatedAccount.accountNumber) {
-      throw new Error(
-        "Failed to generate account number"
-      );
-    }
+  if (!nibssAccount || !nibssAccount.accountNumber) {
+    throw new Error("Failed to generate account number");
+  }
 
-    // save to DB
-    return await accountRepo
-      .createAccount({
-
-        ...data,
-
-        accountNumber: generatedAccount.accountNumber,
-      });
+  // save to DB
+  return await accountRepo.createAccount({
+    customerName,
+    accountNumber: nibssAccount.accountNumber,
+    bankCode: nibssAccount.bankCode, 
+    balance: nibssAccount.balance,
+    kycType,
+    kycID,
+    dob
+  });
 };
 
 // balance enquiry

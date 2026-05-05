@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
 import app from './app.js';
 import cors from 'cors';
-
-// directUrl = env("DIRECT_URL")
-
 app.use(cors());
-dotenv.config();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 import prisma from './config/prisma.client.js';
 

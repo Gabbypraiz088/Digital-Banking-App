@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
-
 dotenv.config();
+
 
 let cachedToken = null;
 let expiry = null;
@@ -17,7 +17,7 @@ try{
   }
 
     const response = await axios.post(
-      `${process.env.NIBSS_URL}/auth/token`,
+      `${process.env.NIBBS_URL}/auth/token`,
       {
         apiKey:
           process.env.NIBBS_API_KEY,
@@ -26,8 +26,6 @@ try{
           process.env.NIBBS_API_SECRET,
       }
     );
-
-    console.log("AUTH RESPONSE:", response.data);
 
    const token =
   response.data.token ||
@@ -48,7 +46,8 @@ try{
 
     return token;
   } catch (error) {
-    console.error("AUTH ERROR:", error.response?.data || error.message);
+    console.log("STATUS:", error.response?.status);
+  console.log("DATA:", error.response?.data);
     throw error;
   }
 };

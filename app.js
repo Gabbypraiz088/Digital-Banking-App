@@ -7,6 +7,7 @@ import accountRoutes from './routes/accountRoutes.js';
 import transactionRoutes from './routes/transactionsRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import ledgerRoutes from './routes/ledgerRoutes.js';
+import txRoutes from './routes/txRoutes.js';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 import cors from 'cors';
@@ -28,6 +29,7 @@ app.use('/accounts', accountRoutes);
 app.use('/transactions', transactionRoutes);
 app.use('/customers', customerRoutes);
 app.use('/ledgers', ledgerRoutes);
+app.use('/tx', txRoutes);
 app.use(errorMiddleware);
 
 

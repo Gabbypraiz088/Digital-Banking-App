@@ -2,7 +2,7 @@ import * as accountService from "../services/accountServices.js";
 
 export const createAccount = async (req, res, next) => {
   try {
-    const account = await accountService.createAccount(req.validatedData);
+    const account = await accountService.createAccount(req.body);
 
     res.status(201).json({
       message: "Account created successfully",
@@ -10,7 +10,7 @@ export const createAccount = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-  }
+  } 
 };
 
 // balance enquiry

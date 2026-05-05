@@ -5,7 +5,7 @@ import { getAccessToken } from "../nibbs/authServices.js";
 export const nibssClient =
   axios.create({
     baseURL:
-      process.env.NIBSS_URL,
+      process.env.NIBBS_URL,
 
     timeout: 10000,
   });

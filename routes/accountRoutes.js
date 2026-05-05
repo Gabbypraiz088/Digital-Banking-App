@@ -14,7 +14,7 @@ router.get('/:id', authenticate, getAccount);
 router.get('/:accountId/balance', authenticate, getAccountBalance);
 
 // Create account
-router.post('/create', authenticate, validate(createAccountSchema), createAccount);
+router.post('/create', createAccount);
 
 // Credit account
 router.post('/credit', authenticate, validate(creditAccountSchema), creditAccount);

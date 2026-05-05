@@ -9,18 +9,25 @@ export const initiateTransfer = async (
   narration,
   reference
 ) => {
-    const response = await nibbsClient.post(
-        "/transfer",
-        ({
-            fromAccount,
-            toAccount,
-            amount,
-            narration,
-            reference
-        })
-    );
+    const response = await nibssClient.post(
+    "/transfer",
+    {
+      from: fromAccount,
+      to: toAccount,    
+      amount: String(amount),
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-    return response.data;
+  return {...response.data, // includes message, transactionId, status
+    narration,
+    reference,
+    fromAccount,
+    toAccount};
 };
         
 // transfer status check
